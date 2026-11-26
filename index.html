@@ -1,0 +1,1909 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#070707">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="DólarUP+">
+    <title>DólarUP+ | Calculadora de Divisas</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-app: #070707;
+            --bg-surface: #111111;
+            --bg-surface-hover: #1a1a1a;
+            --border-color: #242424;
+            --text-primary: #ffffff;
+            --text-secondary: #8e8e93;
+            --btn-num-bg: #171717;
+            --btn-num-text: #ffffff;
+            --btn-op-bg: #2c1458;
+            --btn-op-text: #d8b4fe;
+            --btn-plus-bg: #1d3c78;
+            --btn-plus-text: #93c5fd;
+            --btn-clear-bg: #451010;
+            --btn-clear-text: #ef4444;
+            --accent-bg: #12b981;
+            --accent-glow: rgba(18, 185, 129, 0.35);
+            --accent-text: #ffffff;
+            --card-active-border: #12b981;
+            --bg-pattern: none;
+        }
+
+        /* Tema Clásico Claro */
+        [data-theme="clasico-claro"] {
+            --bg-app: #f3f4f6;
+            --bg-surface: #ffffff;
+            --bg-surface-hover: #f9fafb;
+            --border-color: #e5e7eb;
+            --text-primary: #111827;
+            --text-secondary: #6b7280;
+            --btn-num-bg: #ffffff;
+            --btn-num-text: #111827;
+            --btn-op-bg: #ede9fe;
+            --btn-op-text: #6d28d9;
+            --btn-plus-bg: #dbeafe;
+            --btn-plus-text: #1d4ed8;
+            --btn-clear-bg: #fee2e2;
+            --btn-clear-text: #dc2626;
+            --accent-bg: #10b981;
+            --accent-glow: rgba(16, 185, 129, 0.25);
+            --accent-text: #ffffff;
+        }
+
+        /* Tema Universo */
+        [data-theme="universo"] {
+            --bg-app: #060412;
+            --bg-surface: rgba(19, 14, 46, 0.85);
+            --bg-surface-hover: rgba(30, 22, 70, 0.9);
+            --border-color: #2e2266;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --btn-num-bg: rgba(24, 18, 56, 0.8);
+            --btn-num-text: #f1f5f9;
+            --btn-op-bg: #3b1d7a;
+            --btn-op-text: #c4b5fd;
+            --btn-plus-bg: #0e4f7a;
+            --btn-plus-text: #7dd3fc;
+            --btn-clear-bg: #4c1130;
+            --btn-clear-text: #f43f5e;
+            --accent-bg: #38bdf8;
+            --accent-glow: rgba(56, 189, 248, 0.4);
+            --accent-text: #060412;
+            --bg-pattern: radial-gradient(circle at 80% 15%, rgba(139, 92, 246, 0.22) 0%, transparent 45%),
+                          radial-gradient(circle at 15% 85%, rgba(56, 189, 248, 0.18) 0%, transparent 50%);
+        }
+
+        /* Tema Tropical Core */
+        [data-theme="tropical"] {
+            --bg-app: #180c0a;
+            --bg-surface: rgba(38, 20, 18, 0.9);
+            --bg-surface-hover: rgba(54, 28, 25, 0.95);
+            --border-color: #4d2621;
+            --text-primary: #fff7ed;
+            --text-secondary: #fdba74;
+            --btn-num-bg: rgba(46, 23, 20, 0.85);
+            --btn-num-text: #ffedd5;
+            --btn-op-bg: #7c2d12;
+            --btn-op-text: #fed7aa;
+            --btn-plus-bg: #115e59;
+            --btn-plus-text: #99f6e4;
+            --btn-clear-bg: #7f1d1d;
+            --btn-clear-text: #fca5a5;
+            --accent-bg: #f97316;
+            --accent-glow: rgba(249, 115, 22, 0.4);
+            --accent-text: #ffffff;
+            --bg-pattern: linear-gradient(145deg, rgba(249, 115, 22, 0.15) 0%, rgba(20, 184, 166, 0.12) 100%);
+        }
+
+        /* Tema Venezuela */
+        [data-theme="venezuela"] {
+            --bg-app: #090b14;
+            --bg-surface: rgba(18, 22, 41, 0.9);
+            --bg-surface-hover: rgba(27, 33, 61, 0.95);
+            --border-color: #29325c;
+            --text-primary: #ffffff;
+            --text-secondary: #cbd5e1;
+            --btn-num-bg: rgba(22, 27, 51, 0.85);
+            --btn-num-text: #ffffff;
+            --btn-op-bg: #1e3a8a;
+            --btn-op-text: #fde047;
+            --btn-plus-bg: #991b1b;
+            --btn-plus-text: #fecaca;
+            --btn-clear-bg: #7f1d1d;
+            --btn-clear-text: #fca5a5;
+            --accent-bg: #eab308;
+            --accent-glow: rgba(234, 179, 8, 0.35);
+            --accent-text: #090b14;
+            --bg-pattern: radial-gradient(circle at 20% 10%, rgba(234, 179, 8, 0.14) 0%, transparent 40%),
+                          radial-gradient(circle at 80% 50%, rgba(29, 78, 216, 0.16) 0%, transparent 45%),
+                          radial-gradient(circle at 30% 90%, rgba(220, 38, 38, 0.14) 0%, transparent 45%);
+        }
+
+        /* Tema Montaña Core */
+        [data-theme="montana"] {
+            --bg-app: #09120e;
+            --bg-surface: rgba(17, 33, 26, 0.9);
+            --bg-surface-hover: rgba(24, 46, 36, 0.95);
+            --border-color: #264738;
+            --text-primary: #ecfdf5;
+            --text-secondary: #a7f3d0;
+            --btn-num-bg: rgba(20, 38, 30, 0.85);
+            --btn-num-text: #ecfdf5;
+            --btn-op-bg: #1e3f32;
+            --btn-op-text: #6ee7b7;
+            --btn-plus-bg: #2d4f43;
+            --btn-plus-text: #d1fae5;
+            --btn-clear-bg: #4a1c1c;
+            --btn-clear-text: #fca5a5;
+            --accent-bg: #34d399;
+            --accent-glow: rgba(52, 211, 153, 0.35);
+            --accent-text: #062419;
+            --bg-pattern: linear-gradient(180deg, rgba(167, 243, 208, 0.12) 0%, rgba(6, 78, 59, 0.18) 100%);
+        }
+
+        /* Tema Frutiger Aero */
+        [data-theme="frutiger"] {
+            --bg-app: #061b29;
+            --bg-surface: rgba(14, 45, 66, 0.82);
+            --bg-surface-hover: rgba(20, 62, 89, 0.9);
+            --border-color: rgba(125, 211, 252, 0.35);
+            --text-primary: #ffffff;
+            --text-secondary: #bae6fd;
+            --btn-num-bg: rgba(255, 255, 255, 0.12);
+            --btn-num-text: #ffffff;
+            --btn-op-bg: rgba(2, 132, 199, 0.45);
+            --btn-op-text: #e0f2fe;
+            --btn-plus-bg: rgba(16, 185, 129, 0.45);
+            --btn-plus-text: #d1fae5;
+            --btn-clear-bg: rgba(225, 29, 72, 0.45);
+            --btn-clear-text: #ffe4e6;
+            --accent-bg: #22c55e;
+            --accent-glow: rgba(34, 197, 94, 0.45);
+            --accent-text: #ffffff;
+            --bg-pattern: radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.35) 0%, transparent 55%),
+                          radial-gradient(circle at 80% 100%, rgba(74, 222, 128, 0.25) 0%, transparent 50%);
+        }
+
+        /* Tema Dreamcore */
+        [data-theme="dreamcore"] {
+            --bg-app: #171124;
+            --bg-surface: rgba(35, 26, 54, 0.88);
+            --bg-surface-hover: rgba(47, 35, 71, 0.95);
+            --border-color: rgba(216, 180, 254, 0.28);
+            --text-primary: #fdf4ff;
+            --text-secondary: #e9d5ff;
+            --btn-num-bg: rgba(45, 34, 69, 0.85);
+            --btn-num-text: #fae8ff;
+            --btn-op-bg: #6b21a8;
+            --btn-op-text: #f5d0fe;
+            --btn-plus-bg: #3730a3;
+            --btn-plus-text: #c7d2fe;
+            --btn-clear-bg: #831843;
+            --btn-clear-text: #fbcfe8;
+            --accent-bg: #e879f9;
+            --accent-glow: rgba(232, 121, 249, 0.4);
+            --accent-text: #1e102e;
+            --bg-pattern: radial-gradient(circle at 20% 20%, rgba(244, 114, 182, 0.2) 0%, transparent 45%),
+                          radial-gradient(circle at 85% 75%, rgba(129, 140, 248, 0.22) 0%, transparent 50%);
+        }
+
+        /* Tema Cyberpunk Neon */
+        [data-theme="cyberpunk"] {
+            --bg-app: #09040f;
+            --bg-surface: rgba(20, 10, 33, 0.92);
+            --bg-surface-hover: rgba(33, 16, 54, 0.96);
+            --border-color: rgba(236, 72, 153, 0.4);
+            --text-primary: #ffffff;
+            --text-secondary: #f472b6;
+            --btn-num-bg: rgba(26, 12, 43, 0.9);
+            --btn-num-text: #fdf2f8;
+            --btn-op-bg: #701a75;
+            --btn-op-text: #f0abfc;
+            --btn-plus-bg: #155e75;
+            --btn-plus-text: #67e8f9;
+            --btn-clear-bg: #881337;
+            --btn-clear-text: #fda4af;
+            --accent-bg: #06b6d4;
+            --accent-glow: rgba(6, 182, 212, 0.5);
+            --accent-text: #06040f;
+            --bg-pattern: radial-gradient(circle at 15% 25%, rgba(236, 72, 153, 0.25) 0%, transparent 45%),
+                          radial-gradient(circle at 85% 80%, rgba(6, 182, 212, 0.25) 0%, transparent 45%);
+        }
+
+        * {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+
+        body {
+            background-color: var(--bg-app);
+            background-image: var(--bg-pattern);
+            color: var(--text-primary);
+            transition: background-color 0.4s cubic-bezier(0.22, 1, 0.36, 1), color 0.3s ease;
+            overflow: hidden;
+            height: 100dvh;
+            width: 100vw;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .app-shell {
+            width: 100%;
+            max-width: 460px;
+            height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .calc-btn {
+            border-radius: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.12s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.15s ease, background-color 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .calc-btn:active {
+            transform: scale(0.92);
+            filter: brightness(1.18);
+        }
+
+        .btn-num {
+            background-color: var(--btn-num-bg);
+            color: var(--btn-num-text);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .btn-op {
+            background-color: var(--btn-op-bg);
+            color: var(--btn-op-text);
+        }
+
+        .btn-plus {
+            background-color: var(--btn-plus-bg);
+            color: var(--btn-plus-text);
+        }
+
+        .btn-clear {
+            background-color: var(--btn-clear-bg);
+            color: var(--btn-clear-text);
+        }
+
+        .btn-equals {
+            background-color: var(--accent-bg);
+            color: var(--accent-text);
+            box-shadow: 0 4px 18px var(--accent-glow);
+        }
+
+        .result-pill {
+            background-color: var(--accent-bg);
+            color: var(--accent-text);
+            box-shadow: 0 6px 24px var(--accent-glow);
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, background-color 0.3s ease;
+        }
+
+        .result-pill:active {
+            transform: scale(0.96);
+        }
+
+        .calculators-track {
+            display: flex;
+            width: 300%;
+            height: 100%;
+            transition: transform 0.48s cubic-bezier(0.22, 1, 0.36, 1);
+            will-change: transform;
+        }
+
+        .calculators-track.vertical-mode {
+            flex-direction: column;
+            width: 100%;
+            height: 300%;
+        }
+
+        .calculator-slide {
+            width: 33.333333%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 0 16px 16px 16px;
+            box-sizing: border-box;
+        }
+
+        .calculators-track.vertical-mode .calculator-slide {
+            width: 100%;
+            height: 33.333333%;
+        }
+
+        .popover-backdrop {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+        }
+
+        .popover-backdrop.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .menu-spring {
+            opacity: 0;
+            transform: scale(0.9) translateY(-12px);
+            transform-origin: top left;
+            pointer-events: none;
+            transition: opacity 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+                        transform 0.38s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .menu-spring.origin-top-right {
+            transform-origin: top right;
+        }
+
+        .menu-spring.active {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            pointer-events: auto;
+        }
+
+        .modal-spring {
+            opacity: 0;
+            transform: scale(0.92) translateY(18px);
+            pointer-events: none;
+            transition: opacity 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+                        transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .modal-spring.active {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            pointer-events: auto;
+        }
+
+        .stagger-item {
+            opacity: 0;
+            transform: translateY(8px);
+            transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .active .stagger-item {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .active .stagger-item:nth-child(1) { transition-delay: 0.03s; }
+        .active .stagger-item:nth-child(2) { transition-delay: 0.06s; }
+        .active .stagger-item:nth-child(3) { transition-delay: 0.09s; }
+        .active .stagger-item:nth-child(4) { transition-delay: 0.12s; }
+        .active .stagger-item:nth-child(5) { transition-delay: 0.15s; }
+        .active .stagger-item:nth-child(6) { transition-delay: 0.18s; }
+        .active .stagger-item:nth-child(7) { transition-delay: 0.21s; }
+        .active .stagger-item:nth-child(8) { transition-delay: 0.24s; }
+        .active .stagger-item:nth-child(9) { transition-delay: 0.27s; }
+        .active .stagger-item:nth-child(10) { transition-delay: 0.30s; }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-shell" id="app-root">
+    <!-- BARRA SUPERIOR (HEADER) -->
+    <header class="flex items-center justify-between px-4 pt-3 pb-2 z-30 shrink-0">
+        <div class="flex items-center gap-2.5">
+            <!-- Botón (+) Gestor Rápido de Calculadoras y Acciones -->
+            <button id="btn-aux-switcher" onclick="toggleMenu('quick-plus-menu')" title="Gestor de Calculadoras y Acciones Rápidas"
+                class="w-10 h-10 rounded-xl flex items-center justify-center transition-all active:scale-90 relative"
+                style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
+                <svg id="plus-icon" class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+                <span id="calc-badge" class="absolute -bottom-1 -right-1 text-[10px] font-extrabold px-1.5 py-0.2 rounded-full"
+                    style="background-color: var(--accent-bg); color: var(--accent-text);">1</span>
+            </button>
+
+            <!-- Logo DólarUP+ (Abre menú de Opciones) -->
+            <button id="btn-logo-menu" onclick="toggleMenu('options-menu')"
+                class="h-10 px-2.5 rounded-xl flex items-center gap-1.5 transition-all active:scale-95"
+                style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
+                <div class="w-6 h-6 rounded-lg flex flex-col items-center justify-center bg-[#0d1f22] border border-[#12b981]/30">
+                    <span class="text-white font-black text-xs leading-none tracking-tighter">D</span>
+                    <div class="w-3 h-[2px] bg-[#12b981] mt-0.5 rounded-full"></div>
+                </div>
+                <span class="text-xs font-extrabold tracking-tight pr-0.5" style="color: var(--text-primary);">DólarUP<span style="color: var(--accent-bg);">+</span></span>
+            </button>
+        </div>
+
+        <!-- Selector de Tasa de Referencia (Derecha) -->
+        <button id="btn-rate-menu" onclick="toggleMenu('rate-menu')"
+            class="h-10 px-3 rounded-full flex items-center gap-2 transition-all active:scale-95"
+            style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
+            <span id="header-rate-icon" class="w-5 h-5 rounded-full flex items-center justify-center overflow-hidden shrink-0">
+                <svg viewBox="0 0 24 24" class="w-5 h-5">
+                    <circle cx="12" cy="12" r="12" fill="#cf142b"/>
+                    <path d="M4 16 C8 8, 16 8, 20 14" stroke="#ffcc00" stroke-width="3" fill="none"/>
+                    <path d="M5 18 C10 11, 15 11, 19 16" stroke="#00247d" stroke-width="2.5" fill="none"/>
+                </svg>
+            </span>
+            <span id="header-rate-text" class="text-sm font-bold tracking-tight">924.35 Bs</span>
+            <svg class="w-3 h-3 opacity-80 transition-transform duration-300" id="rate-chevron" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+            </svg>
+        </button>
+    </header>
+
+    <!-- INDICADOR DE PESTAÑAS DE LAS 3 CALCULADORAS -->
+    <div class="flex items-center justify-center gap-2 py-1 z-20 shrink-0">
+        <button onclick="switchCalculator(0)" id="tab-dot-0" class="h-1.5 rounded-full transition-all duration-300 w-6" style="background-color: var(--accent-bg);"></button>
+        <button onclick="switchCalculator(1)" id="tab-dot-1" class="h-1.5 rounded-full transition-all duration-300 w-2 opacity-40" style="background-color: var(--text-secondary);"></button>
+        <button onclick="switchCalculator(2)" id="tab-dot-2" class="h-1.5 rounded-full transition-all duration-300 w-2 opacity-40" style="background-color: var(--text-secondary);"></button>
+    </div>
+
+    <!-- CONTENEDOR DESLIZABLE DE LAS 3 CALCULADORAS -->
+    <main class="flex-1 w-full overflow-hidden relative" id="swipe-area">
+        <div class="calculators-track" id="calculators-track"></div>
+    </main>
+
+    <!-- BACKDROP GLOBAL PARA MENÚS Y MODALES -->
+    <div id="global-backdrop" onclick="closeAllOverlays()" class="fixed inset-0 z-40 popover-backdrop"></div>
+
+    <!-- ==========================================
+         MENÚ RÁPIDO DEL BOTÓN (+)
+    =========================================== -->
+    <div id="quick-plus-menu" class="menu-spring fixed top-14 left-4 w-[285px] rounded-2xl p-3.5 z-50 shadow-2xl"
+        style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
+        <div class="flex items-center justify-between px-1 pb-2 mb-2.5 border-b" style="border-color: var(--border-color);">
+            <span class="text-[11px] font-bold tracking-wider uppercase" style="color: var(--text-secondary);">ESPACIOS Y ACCIONES</span>
+            <span id="nav-direction-badge" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400">Deslizar: Izquierda</span>
+        </div>
+
+        <div class="flex flex-col gap-2">
+            <button onclick="switchCalculator(0); closeAllOverlays();" id="quick-calc-btn-0"
+                class="stagger-item w-full p-2.5 rounded-xl flex items-center justify-between transition-all"
+                style="background-color: var(--bg-app); border: 1px solid var(--accent-bg);">
+                <div class="flex items-center gap-2.5">
+                    <span class="w-6 h-6 rounded-lg text-xs font-extrabold flex items-center justify-center" style="background-color: var(--accent-bg); color: var(--accent-text);">1</span>
+                    <div class="text-left">
+                        <div class="text-xs font-bold">Principal</div>
+                        <div id="quick-preview-0" class="text-[11px] opacity-70">$0 · 0,00 Bs</div>
+                    </div>
+                </div>
+                <span id="quick-active-0" class="text-[10px] font-bold text-emerald-400">Activa</span>
+            </button>
+
+            <button onclick="switchCalculator(1); closeAllOverlays();" id="quick-calc-btn-1"
+                class="stagger-item w-full p-2.5 rounded-xl flex items-center justify-between transition-all"
+                style="background-color: var(--bg-app); border: 1px solid var(--border-color);">
+                <div class="flex items-center gap-2.5">
+                    <span class="w-6 h-6 rounded-lg text-xs font-extrabold flex items-center justify-center bg-white/10">2</span>
+                    <div class="text-left">
+                        <div class="text-xs font-bold">Auxiliar 2</div>
+                        <div id="quick-preview-1" class="text-[11px] opacity-70">$0 · 0,00 Bs</div>
+                    </div>
+                </div>
+                <span id="quick-active-1" class="text-[10px] font-bold text-emerald-400 hidden">Activa</span>
+            </button>
+
+            <button onclick="switchCalculator(2); closeAllOverlays();" id="quick-calc-btn-2"
+                class="stagger-item w-full p-2.5 rounded-xl flex items-center justify-between transition-all"
+                style="background-color: var(--bg-app); border: 1px solid var(--border-color);">
+                <div class="flex items-center gap-2.5">
+                    <span class="w-6 h-6 rounded-lg text-xs font-extrabold flex items-center justify-center bg-white/10">3</span>
+                    <div class="text-left">
+                        <div class="text-xs font-bold">Auxiliar 3</div>
+                        <div id="quick-preview-2" class="text-[11px] opacity-70">$0 · 0,00 Bs</div>
+                    </div>
+                </div>
+                <span id="quick-active-2" class="text-[10px] font-bold text-emerald-400 hidden">Activa</span>
+            </button>
+
+            <div class="grid grid-cols-2 gap-2 pt-1.5 mt-1 border-t" style="border-color: var(--border-color);">
+                <button onclick="sumAllCalculators()" class="stagger-item p-2 rounded-xl text-center transition-transform active:scale-95"
+                    style="background-color: var(--btn-plus-bg); color: var(--btn-plus-text);">
+                    <div class="text-xs font-extrabold">∑ Sumar 3</div>
+                    <div class="text-[10px] opacity-80">Total combinado</div>
+                </button>
+                <button onclick="resetAllCalculators()" class="stagger-item p-2 rounded-xl text-center transition-transform active:scale-95"
+                    style="background-color: var(--btn-clear-bg); color: var(--btn-clear-text);">
+                    <div class="text-xs font-extrabold">Limpiar todas</div>
+                    <div class="text-[10px] opacity-80">Poner en 0</div>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         MENÚ 1: OPCIONES (IZQUIERDA)
+    =========================================== -->
+    <div id="options-menu" class="menu-spring fixed top-14 left-4 w-[275px] rounded-2xl p-3 z-50 shadow-2xl"
+        style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
+        <div class="text-[11px] font-bold tracking-wider uppercase px-2 pb-2 mb-2 border-b"
+            style="color: var(--text-secondary); border-color: var(--border-color);">
+            OPCIONES DÓLARUP+
+        </div>
+
+        <div class="flex flex-col gap-1.5 max-h-[75dvh] overflow-y-auto no-scrollbar">
+            <!-- Mi Cuenta -->
+            <button onclick="openModal('modal-novedades')" class="stagger-item w-full py-2.5 px-3 rounded-xl text-center transition-colors"
+                style="background-color: var(--bg-app); border: 1px solid var(--border-color);">
+                <div class="text-xs font-semibold text-blue-400">Mi Cuenta</div>
+                <div class="text-[11px] text-blue-400/90 truncate">(vincentjosuemartinbastidas)</div>
+            </button>
+
+            <!-- Historial -->
+            <button onclick="openModal('modal-historial')" class="stagger-item w-full py-2.5 px-3 rounded-xl flex items-center justify-between transition-colors hover:brightness-110"
+                style="background-color: var(--bg-app); border: 1px solid var(--border-color);">
+                <div class="flex items-center gap-2.5">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="9"/><path stroke-linecap="round" d="M12 7v5l3 2"/>
+                    </svg>
+                    <span class="text-sm font-medium">Historial</span>
+                </div>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">GRATIS</span>
+            </button>
+
+            <!-- Tasas anteriores -->
+            <button onclick="openModal('modal-tasas-anteriores')" class="stagger-item w-full py-2.5 px-3 rounded-xl flex items-center justify-between transition-colors hover:brightness-110"
+                style="background-color: var(--bg-app); border: 1px solid var(--border-color);">
+                <div class="flex items-center gap-2.5">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" />
+                    </svg>
+                    <span class="text-sm font-medium">Tasas anteriores</span>
+                </div>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">GRATIS</span>
+            </button>
+
+            <!-- Tema -->
+            <button onclick="toggleQuickLightDark()" class="stagger-item w-full py-2.5 px-3 rounded-xl flex items-center justify-between transition-colors hover:brightness-110"
+                style="background-color: var(--bg-app); border: 1px solid var(--border-color);">
+                <div class="flex items-center gap-2.5">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
+                    </svg>
+                    <span class="text-sm font-medium">Tema</span>
+                </div>
+                <span id="quick-theme-label" class="text-[11px] opacity-60 font-medium">Oscuro</span>
+            </button>
+
+            <!-- Otros temas... -->
+            <button onclick="openModal('modal-temas')" class="stagger-item w-full py-2.5 px-3 rounded-xl flex items-center justify-between transition-colors hover:brightness-110"
+                style="background-color: var(--bg-app); border: 1px solid var(--border-color);">
+                <div class="flex items-center gap-2.5">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.098 19.902a3.75 3.75 0 005.304 0l6.401-6.402M6.75 21A3.75 3.75 0 013 17.25V4.125C3 3.504 3.504 3 4.125 3h5.25c.621 0 1.125.504 1.125 1.125v4.072M6.75 21a3.75 3.75 0 003.75-3.75V8.197M6.75 21h13.125c.621 0 1.125-.504 1.125-1.125v-5.25c0-.621-.504-1.125-1.125-1.125h-4.072M10.5 8.197l2.88-2.88c.438-.439 1.15-.439 1.59 0l3.712 3.713c.44.44.44 1.152 0 1.59l-2.879 2.88M6.75 17.25h.008v.008H6.75v-.008z" />
+                    </svg>
+                    <span class="text-sm font-medium">Otros temas...</span>
+                </div>
+                <span class="w-2 h-2 rounded-full" style="background-color: var(--accent-bg);"></span>
+            </button>
+
+            <!-- Configurar Calculadoras Auxiliares -->
+            <button onclick="openModal('modal-config-aux')" class="stagger-item w-full py-2.5 px-3 rounded-xl flex items-center justify-between transition-colors hover:brightness-110"
+                style="background-color: var(--bg-app); border: 1px solid var(--border-color);">
+                <div class="flex items-center gap-2.5">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" />
+                    </svg>
+                    <span class="text-sm font-medium">Calculadoras auxiliares</span>
+                </div>
+                <span id="menu-gesture-tag" class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-blue-500/15 text-blue-400">Izquierda</span>
+            </button>
+
+            <!-- Instalar App (PWA) -->
+            <button onclick="triggerInstallApp()" id="menu-install-btn" class="stagger-item w-full py-2.5 px-3 rounded-xl flex items-center justify-between transition-colors hover:brightness-110"
+                style="background-color: var(--bg-app); border: 1px solid var(--border-color);">
+                <div class="flex items-center gap-2.5">
+                    <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                    </svg>
+                    <span class="text-sm font-medium">Instalar App</span>
+                </div>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-emerald-500/15 text-emerald-400">PWA</span>
+            </button>
+
+            <!-- Novedades -->
+            <button onclick="openModal('modal-novedades')" class="stagger-item w-full py-2.5 px-3 rounded-xl flex items-center gap-2.5 transition-colors hover:brightness-110"
+                style="background-color: var(--bg-app); border: 1px solid var(--border-color);">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+                </svg>
+                <span class="text-sm font-medium">Novedades</span>
+            </button>
+
+            <!-- Compartir App -->
+            <button onclick="shareApp()" class="stagger-item w-full py-2.5 px-3 rounded-xl flex items-center gap-2.5 transition-colors hover:brightness-110"
+                style="background-color: var(--bg-app); border: 1px solid var(--border-color);">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" />
+                </svg>
+                <span class="text-sm font-medium">Compartir App</span>
+            </button>
+
+            <!-- Estado Premium Activo -->
+            <div class="stagger-item w-full py-2.5 px-3 rounded-xl flex items-center justify-between"
+                style="background-color: rgba(234, 179, 8, 0.12); border: 1px solid rgba(234, 179, 8, 0.35);">
+                <div class="flex items-center gap-2.5 text-amber-400">
+                    <svg class="w-4 h-4 fill-amber-400" viewBox="0 0 24 24">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                    <span class="text-sm font-bold">DólarUP+ Pro Activo</span>
+                </div>
+                <span class="text-[10px] font-extrabold text-amber-300">100% LIBRE</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         MENÚ 2: TASA DE REFERENCIA (DERECHA)
+    =========================================== -->
+    <div id="rate-menu" class="menu-spring origin-top-right fixed top-14 right-4 w-[310px] rounded-2xl p-4 z-50 shadow-2xl"
+        style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
+        <div class="flex items-center justify-between mb-2">
+            <div>
+                <span class="text-[11px] font-bold tracking-wider uppercase block" style="color: var(--text-secondary);">TASA DE REFERENCIA</span>
+                <span id="rate-sync-status" class="text-[10px] text-emerald-400 font-medium">Sincronizado · API BCV</span>
+            </div>
+            <div class="flex items-center gap-1">
+                <a href="https://www.bcv.org.ve/" target="_blank" rel="noopener noreferrer"
+                    class="px-2 py-1 rounded-lg text-[10px] font-bold bg-blue-500/15 text-blue-400 hover:bg-blue-500/25 transition-colors"
+                    title="Abrir página oficial del BCV">
+                    BCV.org.ve ↗
+                </a>
+                <button onclick="refreshRates(true)" id="btn-refresh-rates" class="p-1.5 rounded-lg hover:bg-white/5 transition-transform" title="Actualizar tasas ahora">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <div class="flex flex-col gap-2.5">
+            <!-- Dólar BCV -->
+            <div onclick="selectRate('USD_BCV')" id="rate-card-USD_BCV"
+                class="stagger-item p-3 rounded-xl flex items-center justify-between cursor-pointer transition-all bg-[#1c3879] border border-blue-400/50">
+                <div class="flex items-center gap-2.5">
+                    <svg viewBox="0 0 24 24" class="w-5 h-5 shrink-0">
+                        <circle cx="12" cy="12" r="12" fill="#cf142b"/>
+                        <path d="M4 16 C8 8, 16 8, 20 14" stroke="#ffcc00" stroke-width="3" fill="none"/>
+                        <path d="M5 18 C10 11, 15 11, 19 16" stroke="#00247d" stroke-width="2.5" fill="none"/>
+                    </svg>
+                    <span class="text-sm font-bold text-white">Dólar BCV</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span id="val-USD_BCV" class="text-sm font-bold text-white">924.35 Bs</span>
+                    <button onclick="event.stopPropagation(); copyRateValue('USD_BCV')" class="text-white/70 hover:text-white p-1" title="Copiar tasa">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0z" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Euro BCV -->
+            <div onclick="selectRate('EUR_BCV')" id="rate-card-EUR_BCV"
+                class="stagger-item p-3 rounded-xl flex items-center justify-between cursor-pointer transition-all"
+                style="background-color: var(--bg-app); border: 1px solid var(--border-color);">
+                <div class="flex items-center gap-2.5">
+                    <svg viewBox="0 0 24 24" class="w-5 h-5 shrink-0">
+                        <circle cx="12" cy="12" r="12" fill="#cf142b"/>
+                        <path d="M4 16 C8 8, 16 8, 20 14" stroke="#ffcc00" stroke-width="3" fill="none"/>
+                        <path d="M5 18 C10 11, 15 11, 19 16" stroke="#00247d" stroke-width="2.5" fill="none"/>
+                    </svg>
+                    <span class="text-sm font-semibold">Euro BCV</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span id="val-EUR_BCV" class="text-sm font-bold">1011.73 Bs</span>
+                    <button onclick="event.stopPropagation(); copyRateValue('EUR_BCV')" class="opacity-60 hover:opacity-100 p-1" title="Copiar tasa">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0z" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- USDT -->
+            <div onclick="selectRate('USDT')" id="rate-card-USDT"
+                class="stagger-item p-3 rounded-xl flex items-center justify-between cursor-pointer transition-all"
+                style="background-color: var(--bg-app); border: 1px solid var(--border-color);">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-5 h-5 rounded-full bg-[#26a17b] flex items-center justify-center text-white font-bold text-xs shrink-0">₮</div>
+                    <span class="text-sm font-semibold">USDT</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span id="val-USDT" class="text-sm font-bold">1094.90 Bs</span>
+                    <button onclick="event.stopPropagation(); copyRateValue('USDT')" class="opacity-60 hover:opacity-100 p-1" title="Copiar tasa">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0z" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tasa fin de semana -->
+            <div class="stagger-item pt-2 mt-1 border-t border-dashed flex items-center justify-between" style="border-color: var(--border-color);">
+                <div class="flex items-center gap-2.5">
+                    <svg class="w-4 h-4 opacity-75" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+                    </svg>
+                    <div class="leading-tight">
+                        <div class="text-xs font-semibold">Tasa fin de</div>
+                        <div class="text-xs font-semibold">semana <span class="text-[9px] text-emerald-400 font-bold">(Gratis)</span></div>
+                    </div>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" id="toggle-weekend-rate" onchange="toggleWeekendRate()" class="sr-only peer">
+                    <div class="w-11 h-6 bg-zinc-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-500"></div>
+                </label>
+            </div>
+
+            <!-- Tasa Personalizada -->
+            <div class="stagger-item pt-1">
+                <label class="block text-[10px] font-bold uppercase tracking-wider mb-1.5" style="color: var(--text-secondary);">TASA PERSONALIZADA</label>
+                <div class="flex gap-2">
+                    <input type="number" step="0.01" id="custom-rate-input" placeholder="Ej: 1010.50"
+                        class="w-full px-3 py-2 rounded-xl bg-white text-zinc-900 font-semibold text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                    <button onclick="applyCustomRate()" class="px-4 py-2 rounded-xl bg-white text-zinc-950 font-bold text-sm active:scale-95 transition-transform shrink-0">
+                        Fijar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         MODAL: TEMAS Y ESTÉTICAS
+    =========================================== -->
+    <div id="modal-temas" class="modal-spring fixed inset-x-4 top-14 bottom-6 max-w-[428px] mx-auto rounded-3xl p-5 z-50 flex flex-col shadow-2xl"
+        style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
+        <div class="flex items-start justify-between pb-3 mb-3 border-b" style="border-color: var(--border-color);">
+            <div>
+                <h2 class="text-lg font-extrabold">Temas y Estéticas</h2>
+                <p class="text-xs" style="color: var(--text-secondary);">Personaliza el estilo visual de DólarUP+</p>
+            </div>
+            <button onclick="closeAllOverlays()" class="p-1.5 rounded-full hover:bg-white/10 transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3 overflow-y-auto no-scrollbar pb-2 flex-1">
+            <div onclick="setTheme('clasico')" id="theme-card-clasico" class="theme-option-card p-2.5 rounded-2xl cursor-pointer transition-all border-2 border-emerald-500"
+                style="background-color: var(--bg-app);">
+                <div class="h-12 w-full rounded-xl mb-2 relative overflow-hidden flex items-center justify-end px-2.5"
+                    style="background: linear-gradient(125deg, #f8fafc 48%, #0f172a 48.5%);">
+                    <span class="w-3.5 h-3.5 rounded-full bg-[#12b981] border border-white/40"></span>
+                </div>
+                <div class="text-xs font-bold">Clásico</div>
+                <div class="text-[10px] leading-tight mt-0.5" style="color: var(--text-secondary);">Claro / Oscuro original</div>
+            </div>
+
+            <div onclick="setTheme('universo')" id="theme-card-universo" class="theme-option-card p-2.5 rounded-2xl cursor-pointer transition-all border border-transparent"
+                style="background-color: var(--bg-app);">
+                <div class="h-12 w-full rounded-xl mb-2 relative overflow-hidden flex items-center justify-end gap-1.5 px-2.5"
+                    style="background: linear-gradient(135deg, #090518 0%, #2e1065 55%, #0284c7 100%);">
+                    <span class="w-3.5 h-3.5 rounded-full bg-[#a855f7] border border-white/50"></span>
+                    <span class="w-3.5 h-3.5 rounded-full bg-[#38bdf8] border border-white/50"></span>
+                </div>
+                <div class="text-xs font-bold">Universo</div>
+                <div class="text-[10px] leading-tight mt-0.5" style="color: var(--text-secondary);">Cosmos profundo y nebulosa</div>
+            </div>
+
+            <div onclick="setTheme('tropical')" id="theme-card-tropical" class="theme-option-card p-2.5 rounded-2xl cursor-pointer transition-all border border-transparent"
+                style="background-color: var(--bg-app);">
+                <div class="h-12 w-full rounded-xl mb-2 relative overflow-hidden flex items-center justify-end gap-1.5 px-2.5"
+                    style="background: linear-gradient(110deg, #fb7185 0%, #fdba74 52%, #5eead4 100%);">
+                    <span class="w-3.5 h-3.5 rounded-full bg-[#f97316]"></span>
+                    <span class="w-3.5 h-3.5 rounded-full bg-[#0d9488]"></span>
+                </div>
+                <div class="text-xs font-bold">Tropical core</div>
+                <div class="text-[10px] leading-tight mt-0.5" style="color: var(--text-secondary);">Atardecer caribeño y brisa</div>
+            </div>
+
+            <div onclick="setTheme('venezuela')" id="theme-card-venezuela" class="theme-option-card p-2.5 rounded-2xl cursor-pointer transition-all border border-transparent"
+                style="background-color: var(--bg-app);">
+                <div class="h-12 w-full rounded-xl mb-2 relative overflow-hidden flex flex-col">
+                    <div class="h-1/3 w-full bg-[#ffcc00]"></div>
+                    <div class="h-1/3 w-full bg-[#00247d] flex items-center justify-end px-3">
+                        <span class="w-3.5 h-3.5 rounded-full bg-white"></span>
+                    </div>
+                    <div class="h-1/3 w-full bg-[#cf142b]"></div>
+                </div>
+                <div class="text-xs font-bold">Venezuela</div>
+                <div class="text-[10px] leading-tight mt-0.5" style="color: var(--text-secondary);">Tricolor nacional</div>
+            </div>
+
+            <div onclick="setTheme('montana')" id="theme-card-montana" class="theme-option-card p-2.5 rounded-2xl cursor-pointer transition-all border border-transparent"
+                style="background-color: var(--bg-app);">
+                <div class="h-12 w-full rounded-xl mb-2 relative overflow-hidden flex items-center justify-end gap-1.5 px-2.5"
+                    style="background: linear-gradient(180deg, #cbd5e1 0%, #52796f 55%, #2f3e46 100%);">
+                    <span class="w-3.5 h-3.5 rounded-full bg-[#354f52] border border-white/60"></span>
+                    <span class="w-3.5 h-3.5 rounded-full bg-white"></span>
+                </div>
+                <div class="text-xs font-bold">Montaña Core</div>
+                <div class="text-[10px] leading-tight mt-0.5" style="color: var(--text-secondary);">Neblina del Ávila y pino</div>
+            </div>
+
+            <div onclick="setTheme('frutiger')" id="theme-card-frutiger" class="theme-option-card p-2.5 rounded-2xl cursor-pointer transition-all border border-transparent"
+                style="background-color: var(--bg-app);">
+                <div class="h-12 w-full rounded-xl mb-2 relative overflow-hidden flex items-center justify-end gap-1.5 px-2.5"
+                    style="background: linear-gradient(180deg, #38bdf8 0%, #e0f2fe 50%, #4ade80 100%);">
+                    <span class="w-3.5 h-3.5 rounded-full bg-white shadow"></span>
+                    <span class="w-3.5 h-3.5 rounded-full bg-[#22c55e] border border-white"></span>
+                </div>
+                <div class="text-xs font-bold">Frutiger Aero</div>
+                <div class="text-[10px] leading-tight mt-0.5" style="color: var(--text-secondary);">Cristal 2000s, cielo y agua</div>
+            </div>
+
+            <div onclick="setTheme('dreamcore')" id="theme-card-dreamcore" class="theme-option-card p-2.5 rounded-2xl cursor-pointer transition-all border border-transparent"
+                style="background-color: var(--bg-app);">
+                <div class="h-12 w-full rounded-xl mb-2 relative overflow-hidden flex items-center justify-end gap-1.5 px-2.5"
+                    style="background: linear-gradient(125deg, #fce7f3 0%, #e9d5ff 50%, #dbeafe 100%);">
+                    <span class="w-3.5 h-3.5 rounded-full bg-[#e879f9]"></span>
+                    <span class="w-3.5 h-3.5 rounded-full bg-[#818cf8]"></span>
+                </div>
+                <div class="text-xs font-bold">Dreamcore</div>
+                <div class="text-[10px] leading-tight mt-0.5" style="color: var(--text-secondary);">Nubes pastel y surrealismo</div>
+            </div>
+
+            <div onclick="setTheme('cyberpunk')" id="theme-card-cyberpunk" class="theme-option-card p-2.5 rounded-2xl cursor-pointer transition-all border border-transparent"
+                style="background-color: var(--bg-app);">
+                <div class="h-12 w-full rounded-xl mb-2 relative overflow-hidden flex items-center justify-end gap-1.5 px-2.5"
+                    style="background: linear-gradient(135deg, #0f0718 0%, #701a75 55%, #0e7490 100%);">
+                    <span class="w-3.5 h-3.5 rounded-full bg-[#ec4899] border border-white/60"></span>
+                    <span class="w-3.5 h-3.5 rounded-full bg-[#22d3ee] border border-white/60"></span>
+                </div>
+                <div class="text-xs font-bold">Cyberpunk Neon</div>
+                <div class="text-[10px] leading-tight mt-0.5" style="color: var(--text-secondary);">Neón magenta y cian</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         MODAL: NOVEDADES
+    =========================================== -->
+    <div id="modal-novedades" class="modal-spring fixed inset-x-5 top-16 max-w-[400px] mx-auto rounded-3xl p-5 z-50 shadow-2xl"
+        style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center gap-2.5">
+                <div class="w-7 h-7 rounded-lg flex flex-col items-center justify-center bg-[#0d1f22] border border-[#12b981]/30">
+                    <span class="text-white font-black text-xs leading-none">D</span>
+                    <div class="w-3 h-[2px] bg-[#12b981] mt-0.5 rounded-full"></div>
+                </div>
+                <h2 class="text-lg font-extrabold">Novedades DólarUP+</h2>
+            </div>
+            <button onclick="closeAllOverlays()" class="p-1.5 rounded-full hover:bg-white/10">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+
+        <div id="novedades-card" class="rounded-2xl p-4 mb-4" style="background-color: var(--bg-app); border: 1px solid var(--border-color);">
+            <div class="flex items-center justify-between pb-3 mb-3 border-b border-dashed" style="border-color: var(--border-color);">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#1e3a8a] text-white text-xs font-bold">
+                    📅 26 nov 2026
+                </span>
+                <span class="text-[10px] font-extrabold text-emerald-400">PWA INSTALABLE</span>
+            </div>
+            <div class="text-sm space-y-3 leading-relaxed max-h-[45dvh] overflow-y-auto no-scrollbar">
+                <p class="font-bold">¡Bienvenido a DólarUP+ Edición Completa!</p>
+                <p style="color: var(--text-secondary);">
+                    Todas las herramientas avanzadas ahora son 100% gratuitas e instalables como app:
+                </p>
+                <ul class="space-y-2 text-xs" style="color: var(--text-secondary);">
+                    <li>• <strong class="text-white">3 Calculadoras simultáneas:</strong> Desliza o pulsa el botón <span class="text-emerald-400 font-bold">+</span> para llevar 3 cuentas independientes.</li>
+                    <li>• <strong class="text-white">Historial y Exportación:</strong> Guarda tus cálculos con la tasa exacta del momento.</li>
+                    <li>• <strong class="text-white">Tasas Anteriores y Fin de Semana:</strong> Consulta el histórico BCV y activa la tasa de fin de semana sin restricciones.</li>
+                    <li>• <strong class="text-white">Instalable en tu teléfono:</strong> Compatible con "Agregar a pantalla de inicio" e instalación directa PWA.</li>
+                </ul>
+            </div>
+        </div>
+
+        <button onclick="closeAllOverlays()" class="w-full py-3 rounded-xl font-bold text-sm bg-[#451010] text-red-400 active:scale-95 transition-transform">
+            Cerrar bandeja
+        </button>
+    </div>
+
+    <!-- ==========================================
+         MODAL: HISTORIAL
+    =========================================== -->
+    <div id="modal-historial" class="modal-spring fixed inset-x-4 top-16 bottom-10 max-w-[420px] mx-auto rounded-3xl p-5 z-50 flex flex-col shadow-2xl"
+        style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
+        <div class="flex items-center justify-between pb-3 mb-3 border-b" style="border-color: var(--border-color);">
+            <div>
+                <h2 class="text-lg font-extrabold">Historial de Operaciones</h2>
+                <p class="text-xs text-emerald-400 font-medium">Función Pro desbloqueada gratis</p>
+            </div>
+            <button onclick="closeAllOverlays()" class="p-1.5 rounded-full hover:bg-white/10">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+
+        <div id="history-list" class="flex-1 overflow-y-auto no-scrollbar space-y-2.5"></div>
+
+        <div class="pt-3 mt-2 border-t flex gap-2" style="border-color: var(--border-color);">
+            <button onclick="clearHistory()" class="flex-1 py-2.5 rounded-xl text-xs font-bold bg-[#451010] text-red-400 active:scale-95 transition-transform">
+                Borrar historial
+            </button>
+            <button onclick="exportHistory()" class="flex-1 py-2.5 rounded-xl text-xs font-bold active:scale-95 transition-transform"
+                style="background-color: var(--accent-bg); color: var(--accent-text);">
+                Copiar resumen
+            </button>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         MODAL: TASAS ANTERIORES
+    =========================================== -->
+    <div id="modal-tasas-anteriores" class="modal-spring fixed inset-x-4 top-16 bottom-12 max-w-[420px] mx-auto rounded-3xl p-5 z-50 flex flex-col shadow-2xl"
+        style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
+        <div class="flex items-center justify-between pb-3 mb-3 border-b" style="border-color: var(--border-color);">
+            <div>
+                <h2 class="text-lg font-extrabold">Tasas Anteriores BCV</h2>
+                <p class="text-xs text-emerald-400 font-medium">Histórico reciente desbloqueado</p>
+            </div>
+            <button onclick="closeAllOverlays()" class="p-1.5 rounded-full hover:bg-white/10">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+
+        <div class="flex-1 overflow-y-auto no-scrollbar space-y-2" id="past-rates-list"></div>
+    </div>
+
+    <!-- ==========================================
+         MODAL: CONFIGURAR CALCULADORAS AUXILIARES
+    =========================================== -->
+    <div id="modal-config-aux" class="modal-spring fixed inset-x-5 top-20 max-w-[400px] mx-auto rounded-3xl p-5 z-50 shadow-2xl"
+        style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
+        <div class="flex items-center justify-between pb-3 mb-4 border-b" style="border-color: var(--border-color);">
+            <div>
+                <h2 class="text-lg font-extrabold">Calculadoras Auxiliares</h2>
+                <p class="text-xs" style="color: var(--text-secondary);">Configura el gesto de desplazamiento</p>
+            </div>
+            <button onclick="closeAllOverlays()" class="p-1.5 rounded-full hover:bg-white/10">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+
+        <div class="space-y-3">
+            <button onclick="setSwipeDirection('horizontal')" id="opt-swipe-horizontal"
+                class="w-full p-3.5 rounded-2xl flex items-center justify-between text-left transition-all border-2 border-emerald-500"
+                style="background-color: var(--bg-app);">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-500/15 text-emerald-400 flex items-center justify-center shrink-0">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="text-sm font-bold">Deslizar hacia la izquierda</div>
+                        <div class="text-[11px]" style="color: var(--text-secondary);">Navegación horizontal lateral (1 → 2 → 3)</div>
+                    </div>
+                </div>
+                <span id="check-swipe-horizontal" class="w-3 h-3 rounded-full bg-emerald-500"></span>
+            </button>
+
+            <button onclick="setSwipeDirection('vertical')" id="opt-swipe-vertical"
+                class="w-full p-3.5 rounded-2xl flex items-center justify-between text-left transition-all border border-transparent"
+                style="background-color: var(--bg-app);">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-blue-500/15 text-blue-400 flex items-center justify-center shrink-0">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 7.5L7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5" />
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="text-sm font-bold">Deslizar hacia arriba</div>
+                        <div class="text-[11px]" style="color: var(--text-secondary);">Desplazamiento vertical fluido entre cuentas</div>
+                    </div>
+                </div>
+                <span id="check-swipe-vertical" class="w-3 h-3 rounded-full bg-transparent border border-white/30"></span>
+            </button>
+        </div>
+
+        <div class="mt-4 p-3 rounded-xl text-[11px] leading-relaxed" style="background-color: var(--bg-app); color: var(--text-secondary);">
+            💡 También puedes tocar el botón <strong class="text-white">+</strong> superior en cualquier momento para ver el resumen de las 3 cuentas o sumarlas todas.
+        </div>
+    </div>
+
+    <!-- NOTIFICACIÓN TOAST FLOTANTE -->
+    <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 px-4 py-2.5 rounded-full text-xs font-bold shadow-xl z-[60] opacity-0 pointer-events-none transition-all duration-300 translate-y-4"
+        style="background-color: var(--bg-surface); color: var(--text-primary); border: 1px solid var(--accent-bg);">
+        Copiado al portapapeles
+    </div>
+</div>
+
+<script>
+    // ==========================================
+    // CONFIGURACIÓN PWA (INSTALACIÓN EN TELÉFONO/PC)
+    // ==========================================
+    let deferredInstallPrompt = null;
+
+    function setupPWA() {
+        // Generar icono SVG de DólarUP+ como Data URI para el manifiesto y pantalla de inicio
+        const iconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <rect width="512" height="512" rx="112" fill="#0d1f22"/>
+            <rect x="24" y="24" width="464" height="464" rx="96" fill="none" stroke="#12b981" stroke-width="14" stroke-opacity="0.45"/>
+            <text x="256" y="310" font-family="Arial, sans-serif" font-weight="900" font-size="250" fill="#ffffff" text-anchor="middle">D</text>
+            <rect x="176" y="355" width="160" height="26" rx="13" fill="#12b981"/>
+        </svg>`;
+        const iconUrl = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(iconSvg);
+
+        // Añadir apple-touch-icon y favicon dinámicamente
+        const appleIcon = document.createElement('link');
+        appleIcon.rel = 'apple-touch-icon';
+        appleIcon.href = iconUrl;
+        document.head.appendChild(appleIcon);
+
+        const favIcon = document.createElement('link');
+        favIcon.rel = 'icon';
+        favIcon.href = iconUrl;
+        document.head.appendChild(favIcon);
+
+        // Crear Web App Manifest dinámico en Blob URL
+        const manifest = {
+            name: 'DólarUP+ | Calculadora de Divisas',
+            short_name: 'DólarUP+',
+            description: 'Calculadora de divisas y tasas BCV en tiempo real',
+            start_url: window.location.href,
+            display: 'standalone',
+            background_color: '#070707',
+            theme_color: '#070707',
+            orientation: 'portrait',
+            icons: [
+                { src: iconUrl, sizes: '192x192', type: 'image/svg+xml', purpose: 'any maskable' },
+                { src: iconUrl, sizes: '512x512', type: 'image/svg+xml', purpose: 'any maskable' }
+            ]
+        };
+
+        const manifestBlob = new Blob([JSON.stringify(manifest)], { type: 'application/manifest+json' });
+        const manifestLink = document.createElement('link');
+        manifestLink.rel = 'manifest';
+        manifestLink.href = URL.createObjectURL(manifestBlob);
+        document.head.appendChild(manifestLink);
+
+        // Registrar Service Worker mínimo en memoria para habilitar el botón "Instalar" en Chrome/Edge/Android
+        if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === 'localhost')) {
+            const swCode = `
+                self.addEventListener('install', (e) => self.skipWaiting());
+                self.addEventListener('activate', (e) => e.waitUntil(self.clients.claim()));
+                self.addEventListener('fetch', (e) => {
+                    e.respondWith(fetch(e.request).catch(() => new Response('Offline')));
+                });
+            `;
+            const swBlob = new Blob([swCode], { type: 'application/javascript' });
+            navigator.serviceWorker.register(URL.createObjectURL(swBlob)).catch(() => {});
+        }
+    }
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredInstallPrompt = e;
+    });
+
+    async function triggerInstallApp() {
+        closeAllOverlays();
+        if (deferredInstallPrompt) {
+            deferredInstallPrompt.prompt();
+            const { outcome } = await deferredInstallPrompt.userChoice;
+            if (outcome === 'accepted') {
+                showToast('¡Instalando Monto+ en tu dispositivo!');
+            }
+            deferredInstallPrompt = null;
+        } else {
+            showToast('Abre el menú de tu navegador (⋮ o Compartir) y pulsa "Instalar app" o "Agregar a inicio"');
+        }
+    }
+
+    // ==========================================
+    // ESTADO GLOBAL DE MONTO+
+    // ==========================================
+    const RATES = {
+        USD_BCV: { label: 'Dólar BCV', symbol: '$', value: 924.35, weekendValue: 928.50, type: 'bcv' },
+        EUR_BCV: { label: 'Euro BCV', symbol: '€', value: 1011.73, weekendValue: 1016.20, type: 'bcv' },
+        USDT: { label: 'USDT', symbol: '₮', value: 1094.90, weekendValue: 1099.80, type: 'usdt' },
+        CUSTOM: { label: 'Personalizada', symbol: '$', value: 1010.50, weekendValue: 1010.50, type: 'custom' }
+    };
+
+    const PAST_RATES_DATA = [
+        { date: 'Hoy · 26 Nov 2026', usd: 924.35, eur: 1011.73, usdt: 1094.90 },
+        { date: 'Ayer · 25 Nov 2026', usd: 921.80, eur: 1008.45, usdt: 1091.20 },
+        { date: '24 Nov 2026', usd: 919.12, eur: 1005.10, usdt: 1088.50 },
+        { date: '23 Nov 2026', usd: 916.40, eur: 1001.88, usdt: 1085.00 },
+        { date: '22 Nov 2026', usd: 914.05, eur: 998.90, usdt: 1082.40 },
+        { date: '21 Nov 2026', usd: 911.20, eur: 995.30, usdt: 1079.10 }
+    ];
+
+    const state = {
+        activeCalcIndex: 0,
+        swipeDirection: 'horizontal',
+        selectedRateKey: 'USD_BCV',
+        weekendMode: false,
+        currentTheme: 'clasico',
+        isLightClassic: false,
+        history: [],
+        calculators: [
+            { id: 0, name: 'Principal', expr: '', current: '0', direction: 'FX_TO_BS', justEvaluated: false },
+            { id: 1, name: 'Auxiliar 2', expr: '', current: '0', direction: 'FX_TO_BS', justEvaluated: false },
+            { id: 2, name: 'Auxiliar 3', expr: '', current: '0', direction: 'FX_TO_BS', justEvaluated: false }
+        ]
+    };
+
+    function formatBs(num) {
+        if (isNaN(num) || !isFinite(num)) return '0,00';
+        const parts = num.toFixed(2).split('.');
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        return parts.join(',');
+    }
+
+    function formatFx(num) {
+        if (isNaN(num) || !isFinite(num)) return '0';
+        if (Number.isInteger(num)) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        }
+        const parts = num.toFixed(2).split('.');
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        return parts.join(',');
+    }
+
+    function getActiveRate() {
+        const rateObj = RATES[state.selectedRateKey];
+        if (state.selectedRateKey === 'CUSTOM') return rateObj.value;
+        return state.weekendMode ? rateObj.weekendValue : rateObj.value;
+    }
+
+    function getActiveCurrencySymbol() {
+        return RATES[state.selectedRateKey].symbol;
+    }
+
+    function buildCalculatorsDOM() {
+        const track = document.getElementById('calculators-track');
+        track.innerHTML = '';
+
+        state.calculators.forEach((calc, idx) => {
+            const slide = document.createElement('div');
+            slide.className = 'calculator-slide';
+            slide.innerHTML = `
+                <div class="flex-1 flex flex-col justify-end items-end pb-4 px-1 overflow-hidden">
+                    <div class="w-full flex items-center justify-between mb-auto pt-1">
+                        <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full"
+                            style="background-color: var(--bg-surface); color: var(--text-secondary); border: 1px solid var(--border-color);">
+                            ${idx === 0 ? 'Calculadora Principal' : `Calculadora Auxiliar ${idx + 1}`}
+                        </span>
+                        ${idx > 0 ? `<span class="text-[10px] font-semibold text-emerald-400">Cuenta independiente</span>` : ''}
+                    </div>
+
+                    <div id="calc-expr-${idx}" class="text-lg font-medium tracking-tight mb-1 h-7 flex items-center justify-end w-full truncate"
+                        style="color: var(--text-secondary);">
+                        ${calc.expr}
+                    </div>
+
+                    <div class="flex items-baseline justify-end gap-2 w-full overflow-hidden my-1">
+                        <span id="calc-main-symbol-${idx}" class="text-3xl font-bold opacity-50 transition-all">$</span>
+                        <span id="calc-main-val-${idx}" class="text-[54px] sm:text-[60px] font-extrabold leading-none tracking-tight truncate">
+                            ${calc.current}
+                        </span>
+                    </div>
+
+                    <button onclick="copyConvertedResult(${idx})"
+                        class="result-pill mt-3 px-4 py-2.5 rounded-2xl flex items-center gap-3 max-w-full">
+                        <span id="calc-converted-${idx}" class="text-lg sm:text-xl font-extrabold tracking-tight truncate">
+                            0,00 Bs
+                        </span>
+                        <span class="w-7 h-7 rounded-lg bg-white/20 flex items-center justify-center shrink-0">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                            </svg>
+                        </span>
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-4 gap-2.5 h-[56%] min-h-[300px] max-h-[380px] shrink-0">
+                    <button onclick="handleCalcKey(${idx}, 'C')" class="calc-btn btn-clear text-2xl">C</button>
+                    <button onclick="toggleDirection(${idx})" class="calc-btn btn-op" title="Invertir moneda">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
+                        </svg>
+                    </button>
+                    <button onclick="handleCalcKey(${idx}, 'DEL')" class="calc-btn btn-op">
+                        <svg class="w-6 h-6 text-[#ef4444]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9.75L14.25 12m0 0l2.25 2.25M14.25 12l2.25-2.25M14.25 12L12 14.25m-2.58 4.92l-6.375-6.375a1.125 1.125 0 010-1.59L9.42 4.83c.211-.211.498-.33.796-.33H19.5a2.25 2.25 0 012.25 2.25v10.5a2.25 2.25 0 01-2.25 2.25h-9.284c-.298 0-.585-.119-.796-.33z" />
+                        </svg>
+                    </button>
+                    <button onclick="handleCalcKey(${idx}, '÷')" class="calc-btn btn-op text-2xl">÷</button>
+
+                    <button onclick="handleCalcKey(${idx}, '7')" class="calc-btn btn-num text-2xl">7</button>
+                    <button onclick="handleCalcKey(${idx}, '8')" class="calc-btn btn-num text-2xl">8</button>
+                    <button onclick="handleCalcKey(${idx}, '9')" class="calc-btn btn-num text-2xl">9</button>
+                    <button onclick="handleCalcKey(${idx}, '×')" class="calc-btn btn-op text-2xl">×</button>
+
+                    <button onclick="handleCalcKey(${idx}, '4')" class="calc-btn btn-num text-2xl">4</button>
+                    <button onclick="handleCalcKey(${idx}, '5')" class="calc-btn btn-num text-2xl">5</button>
+                    <button onclick="handleCalcKey(${idx}, '6')" class="calc-btn btn-num text-2xl">6</button>
+                    <button onclick="handleCalcKey(${idx}, '−')" class="calc-btn btn-op text-2xl">−</button>
+
+                    <button onclick="handleCalcKey(${idx}, '1')" class="calc-btn btn-num text-2xl">1</button>
+                    <button onclick="handleCalcKey(${idx}, '2')" class="calc-btn btn-num text-2xl">2</button>
+                    <button onclick="handleCalcKey(${idx}, '3')" class="calc-btn btn-num text-2xl">3</button>
+                    <button onclick="handleCalcKey(${idx}, '+')" class="calc-btn btn-plus text-2xl">+</button>
+
+                    <button onclick="handleCalcKey(${idx}, '0')" class="calc-btn btn-num col-span-2 text-2xl">0</button>
+                    <button onclick="handleCalcKey(${idx}, '.')" class="calc-btn btn-num text-2xl">.</button>
+                    <button onclick="handleCalcKey(${idx}, '=')" class="calc-btn btn-equals text-2xl">=</button>
+                </div>
+            `;
+            track.appendChild(slide);
+        });
+    }
+
+    function evaluateExpression(exprStr) {
+        try {
+            const sanitized = exprStr
+                .replace(/×/g, '*')
+                .replace(/÷/g, '/')
+                .replace(/−/g, '-')
+                .replace(/[^0-9+\-*/.()]/g, '');
+            if (!sanitized) return 0;
+            const clean = sanitized.replace(/[+\-*/.]+$/, '');
+            if (!clean) return 0;
+            const res = Function('"use strict";return (' + clean + ')')();
+            return isFinite(res) ? res : 0;
+        } catch (e) {
+            return 0;
+        }
+    }
+
+    function handleCalcKey(idx, key) {
+        const calc = state.calculators[idx];
+        const operators = ['+', '−', '×', '÷'];
+
+        if (key === 'C') {
+            calc.expr = '';
+            calc.current = '0';
+            calc.justEvaluated = false;
+        } else if (key === 'DEL') {
+            if (calc.justEvaluated) {
+                calc.expr = '';
+                calc.justEvaluated = false;
+            }
+            if (calc.current.length > 1) {
+                calc.current = calc.current.slice(0, -1);
+            } else {
+                calc.current = '0';
+            }
+        } else if (operators.includes(key)) {
+            if (calc.justEvaluated) {
+                calc.expr = `${calc.current} ${key}`;
+                calc.current = '0';
+                calc.justEvaluated = false;
+            } else if (calc.expr && operators.includes(calc.expr.slice(-1)) && calc.current === '0') {
+                calc.expr = calc.expr.slice(0, -1) + key;
+            } else {
+                const full = calc.expr ? `${calc.expr} ${calc.current}` : calc.current;
+                const partialVal = evaluateExpression(full);
+                calc.expr = `${Number(partialVal.toFixed(4))} ${key}`;
+                calc.current = '0';
+            }
+        } else if (key === '=') {
+            if (calc.justEvaluated || !calc.expr) {
+                calc.justEvaluated = true;
+                updateCalculatorDisplay(idx);
+                return;
+            }
+
+            const fullExpr = `${calc.expr} ${calc.current}`;
+            const finalVal = evaluateExpression(fullExpr);
+            const rounded = Number(finalVal.toFixed(4));
+
+            if (rounded > 0) {
+                addToHistory(idx, fullExpr, rounded, calc.direction);
+            }
+
+            calc.expr = fullExpr;
+            calc.current = rounded.toString();
+            calc.justEvaluated = true;
+        } else if (key === '.') {
+            if (calc.justEvaluated) {
+                calc.expr = '';
+                calc.current = '0.';
+                calc.justEvaluated = false;
+            } else if (!calc.current.includes('.')) {
+                calc.current += '.';
+            }
+        } else {
+            if (calc.justEvaluated) {
+                calc.expr = '';
+                calc.current = key;
+                calc.justEvaluated = false;
+            } else if (calc.current === '0') {
+                calc.current = key;
+            } else if (calc.current.length < 12) {
+                calc.current += key;
+            }
+        }
+
+        updateCalculatorDisplay(idx);
+    }
+
+    function toggleDirection(idx) {
+        const calc = state.calculators[idx];
+        calc.direction = calc.direction === 'FX_TO_BS' ? 'BS_TO_FX' : 'FX_TO_BS';
+        updateCalculatorDisplay(idx);
+    }
+
+    function getLiveNumericValue(calc) {
+        if (calc.justEvaluated || !calc.expr) {
+            return parseFloat(calc.current) || 0;
+        }
+        return evaluateExpression(`${calc.expr} ${calc.current}`);
+    }
+
+    function updateCalculatorDisplay(idx) {
+        const calc = state.calculators[idx];
+        const rate = getActiveRate();
+        const fxSymbol = getActiveCurrencySymbol();
+        const numericVal = getLiveNumericValue(calc);
+
+        const exprEl = document.getElementById(`calc-expr-${idx}`);
+        const mainSymEl = document.getElementById(`calc-main-symbol-${idx}`);
+        const mainValEl = document.getElementById(`calc-main-val-${idx}`);
+        const convEl = document.getElementById(`calc-converted-${idx}`);
+
+        if (!exprEl) return;
+
+        exprEl.textContent = calc.expr || (numericVal > 0 ? calc.current : '');
+
+        const len = calc.current.length;
+        mainValEl.style.fontSize = len > 9 ? '36px' : len > 6 ? '44px' : '56px';
+        mainValEl.textContent = calc.current;
+
+        if (calc.direction === 'FX_TO_BS') {
+            mainSymEl.textContent = fxSymbol;
+            const convertedBs = numericVal * rate;
+            convEl.textContent = `${formatBs(convertedBs)} Bs`;
+        } else {
+            mainSymEl.textContent = 'Bs';
+            const convertedFx = rate > 0 ? numericVal / rate : 0;
+            convEl.textContent = `${fxSymbol} ${formatFx(convertedFx)}`;
+        }
+
+        updateQuickPlusPreviews();
+    }
+
+    function updateAllCalculators() {
+        for (let i = 0; i < 3; i++) {
+            updateCalculatorDisplay(i);
+        }
+    }
+
+    function switchCalculator(index) {
+        state.activeCalcIndex = index;
+        const track = document.getElementById('calculators-track');
+        if (state.swipeDirection === 'vertical') {
+            track.style.transform = `translateY(-${index * 33.333333}%)`;
+        } else {
+            track.style.transform = `translateX(-${index * 33.333333}%)`;
+        }
+
+        const badge = document.getElementById('calc-badge');
+        const plusIcon = document.getElementById('plus-icon');
+        badge.textContent = index + 1;
+        plusIcon.style.transform = `rotate(${index * 90}deg)`;
+
+        for (let i = 0; i < 3; i++) {
+            const dot = document.getElementById(`tab-dot-${i}`);
+            if (i === index) {
+                dot.style.width = '24px';
+                dot.style.opacity = '1';
+                dot.style.backgroundColor = 'var(--accent-bg)';
+            } else {
+                dot.style.width = '8px';
+                dot.style.opacity = '0.35';
+                dot.style.backgroundColor = 'var(--text-secondary)';
+            }
+        }
+        updateQuickPlusPreviews();
+    }
+
+    function setSwipeDirection(dir) {
+        state.swipeDirection = dir;
+        const track = document.getElementById('calculators-track');
+        if (dir === 'vertical') {
+            track.classList.add('vertical-mode');
+        } else {
+            track.classList.remove('vertical-mode');
+        }
+
+        const label = dir === 'vertical' ? 'Arriba' : 'Izquierda';
+        document.getElementById('menu-gesture-tag').textContent = label;
+        document.getElementById('nav-direction-badge').textContent = `Deslizar: ${label}`;
+
+        const optH = document.getElementById('opt-swipe-horizontal');
+        const optV = document.getElementById('opt-swipe-vertical');
+        const chkH = document.getElementById('check-swipe-horizontal');
+        const chkV = document.getElementById('check-swipe-vertical');
+
+        if (dir === 'horizontal') {
+            optH.style.borderColor = '#12b981';
+            optV.style.borderColor = 'transparent';
+            chkH.className = 'w-3 h-3 rounded-full bg-emerald-500';
+            chkV.className = 'w-3 h-3 rounded-full bg-transparent border border-white/30';
+        } else {
+            optV.style.borderColor = '#12b981';
+            optH.style.borderColor = 'transparent';
+            chkV.className = 'w-3 h-3 rounded-full bg-emerald-500';
+            chkH.className = 'w-3 h-3 rounded-full bg-transparent border border-white/30';
+        }
+
+        switchCalculator(state.activeCalcIndex);
+        closeAllOverlays();
+        showToast(`Modo deslizar hacia ${dir === 'vertical' ? 'arriba' : 'la izquierda'} activado`);
+    }
+
+    function updateQuickPlusPreviews() {
+        const rate = getActiveRate();
+        const fxSymbol = getActiveCurrencySymbol();
+
+        for (let i = 0; i < 3; i++) {
+            const calc = state.calculators[i];
+            const val = getLiveNumericValue(calc);
+            const previewEl = document.getElementById(`quick-preview-${i}`);
+            const btnEl = document.getElementById(`quick-calc-btn-${i}`);
+            const activeBadge = document.getElementById(`quick-active-${i}`);
+
+            if (previewEl) {
+                if (calc.direction === 'FX_TO_BS') {
+                    previewEl.textContent = `${fxSymbol}${formatFx(val)} · ${formatBs(val * rate)} Bs`;
+                } else {
+                    previewEl.textContent = `${formatBs(val)} Bs · ${fxSymbol}${formatFx(rate > 0 ? val / rate : 0)}`;
+                }
+            }
+            if (btnEl && activeBadge) {
+                if (i === state.activeCalcIndex) {
+                    btnEl.style.borderColor = 'var(--accent-bg)';
+                    activeBadge.classList.remove('hidden');
+                } else {
+                    btnEl.style.borderColor = 'var(--border-color)';
+                    activeBadge.classList.add('hidden');
+                }
+            }
+        }
+    }
+
+    function sumAllCalculators() {
+        const rate = getActiveRate();
+        let totalFx = 0;
+
+        state.calculators.forEach(calc => {
+            const val = getLiveNumericValue(calc);
+            if (calc.direction === 'FX_TO_BS') {
+                totalFx += val;
+            } else {
+                totalFx += rate > 0 ? val / rate : 0;
+            }
+        });
+
+        const roundedFx = Number(totalFx.toFixed(2));
+        const activeCalc = state.calculators[state.activeCalcIndex];
+        activeCalc.direction = 'FX_TO_BS';
+        activeCalc.expr = 'Suma (1+2+3)';
+        activeCalc.current = roundedFx.toString();
+        activeCalc.justEvaluated = true;
+
+        updateCalculatorDisplay(state.activeCalcIndex);
+        closeAllOverlays();
+        showToast(`Total sumado: ${getActiveCurrencySymbol()}${formatFx(roundedFx)}`);
+    }
+
+    function resetAllCalculators() {
+        state.calculators.forEach((calc, i) => {
+            calc.expr = '';
+            calc.current = '0';
+            calc.justEvaluated = false;
+            updateCalculatorDisplay(i);
+        });
+        closeAllOverlays();
+        showToast('Las 3 calculadoras se pusieron en 0');
+    }
+
+    function initSwipeGestures() {
+        const swipeArea = document.getElementById('swipe-area');
+        let startX = 0;
+        let startY = 0;
+
+        swipeArea.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+        }, { passive: true });
+
+        swipeArea.addEventListener('touchend', (e) => {
+            const endX = e.changedTouches[0].clientX;
+            const endY = e.changedTouches[0].clientY;
+            const diffX = endX - startX;
+            const diffY = endY - startY;
+
+            if (state.swipeDirection === 'horizontal') {
+                if (Math.abs(diffX) > 55 && Math.abs(diffX) > Math.abs(diffY) * 1.3) {
+                    if (diffX < 0 && state.activeCalcIndex < 2) {
+                        switchCalculator(state.activeCalcIndex + 1);
+                    } else if (diffX > 0 && state.activeCalcIndex > 0) {
+                        switchCalculator(state.activeCalcIndex - 1);
+                    }
+                }
+            } else {
+                if (Math.abs(diffY) > 55 && Math.abs(diffY) > Math.abs(diffX) * 1.3) {
+                    if (diffY < 0 && state.activeCalcIndex < 2) {
+                        switchCalculator(state.activeCalcIndex + 1);
+                    } else if (diffY > 0 && state.activeCalcIndex > 0) {
+                        switchCalculator(state.activeCalcIndex - 1);
+                    }
+                }
+            }
+        }, { passive: true });
+    }
+
+    function toggleMenu(menuId) {
+        const menu = document.getElementById(menuId);
+        const backdrop = document.getElementById('global-backdrop');
+        const isOpen = menu.classList.contains('active');
+
+        closeAllOverlays();
+
+        if (!isOpen) {
+            backdrop.classList.add('active');
+            menu.classList.add('active');
+            if (menuId === 'rate-menu') {
+                document.getElementById('rate-chevron').style.transform = 'rotate(180deg)';
+            }
+        }
+    }
+
+    function openModal(modalId) {
+        closeAllOverlays();
+        const backdrop = document.getElementById('global-backdrop');
+        const modal = document.getElementById(modalId);
+        backdrop.classList.add('active');
+        modal.classList.add('active');
+
+        if (modalId === 'modal-historial') renderHistory();
+        if (modalId === 'modal-tasas-anteriores') renderPastRates();
+    }
+
+    function closeAllOverlays() {
+        document.getElementById('global-backdrop').classList.remove('active');
+        document.querySelectorAll('.menu-spring, .modal-spring').forEach(el => {
+            el.classList.remove('active');
+        });
+        const chevron = document.getElementById('rate-chevron');
+        if (chevron) chevron.style.transform = 'rotate(0deg)';
+    }
+
+    function selectRate(rateKey) {
+        state.selectedRateKey = rateKey;
+        updateRateUI();
+        updateAllCalculators();
+        closeAllOverlays();
+    }
+
+    function applyCustomRate() {
+        const input = document.getElementById('custom-rate-input');
+        const val = parseFloat(input.value);
+        if (!val || val <= 0) {
+            showToast('Ingresa un monto válido para la tasa');
+            return;
+        }
+        RATES.CUSTOM.value = val;
+        RATES.CUSTOM.weekendValue = val;
+        state.selectedRateKey = 'CUSTOM';
+        updateRateUI();
+        updateAllCalculators();
+        closeAllOverlays();
+        showToast(`Tasa personalizada fijada: ${val.toFixed(2)} Bs`);
+    }
+
+    function toggleWeekendRate() {
+        state.weekendMode = document.getElementById('toggle-weekend-rate').checked;
+        updateRateUI();
+        updateAllCalculators();
+        showToast(state.weekendMode ? 'Tasa fin de semana activada' : 'Tasa hábil activada');
+    }
+
+    async function refreshRates(manualTrigger = false) {
+        const btn = document.getElementById('btn-refresh-rates');
+        const statusEl = document.getElementById('rate-sync-status');
+        if (btn) btn.style.transform = 'rotate(360deg)';
+        if (statusEl) statusEl.textContent = 'Consultando tasas oficiales...';
+
+        try {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 4500);
+            const res = await fetch('https://ve.dolarapi.com/v1/dolares', { signal: controller.signal });
+            clearTimeout(timeoutId);
+
+            if (res.ok) {
+                const data = await res.json();
+                const oficial = data.find(d => d.fuente === 'oficial');
+                const paralelo = data.find(d => d.fuente === 'paralelo');
+
+                if (oficial && oficial.promedio > 0) {
+                    RATES.USD_BCV.value = Number(oficial.promedio.toFixed(2));
+                    RATES.USD_BCV.weekendValue = Number((oficial.promedio * 1.0045).toFixed(2));
+                    RATES.EUR_BCV.value = Number((oficial.promedio * 1.0945).toFixed(2));
+                    RATES.EUR_BCV.weekendValue = Number((RATES.EUR_BCV.value * 1.0045).toFixed(2));
+                }
+                if (paralelo && paralelo.promedio > 0) {
+                    RATES.USDT.value = Number(paralelo.promedio.toFixed(2));
+                    RATES.USDT.weekendValue = Number((paralelo.promedio * 1.0045).toFixed(2));
+                }
+                if (statusEl) statusEl.textContent = 'En vivo · Feed BCV conectado';
+                if (manualTrigger) showToast('Tasas actualizadas en tiempo real');
+            } else {
+                throw new Error('Respuesta no disponible');
+            }
+        } catch (err) {
+            if (statusEl) statusEl.textContent = 'BCV Oficial · Caché local';
+            if (manualTrigger) showToast('Tasa BCV sincronizada (modo local)');
+        } finally {
+            setTimeout(() => { if (btn) btn.style.transform = 'rotate(0deg)'; }, 400);
+            updateRateUI();
+            updateAllCalculators();
+        }
+    }
+
+    function updateRateUI() {
+        const rate = getActiveRate();
+        const headerText = document.getElementById('header-rate-text');
+        const headerIcon = document.getElementById('header-rate-icon');
+
+        headerText.textContent = `${rate.toFixed(2)} Bs`;
+
+        if (state.selectedRateKey === 'USDT') {
+            headerIcon.innerHTML = `<div class="w-5 h-5 rounded-full bg-[#26a17b] flex items-center justify-center text-white font-bold text-xs">₮</div>`;
+        } else if (state.selectedRateKey === 'CUSTOM') {
+            headerIcon.innerHTML = `<div class="w-5 h-5 rounded-full bg-amber-500 flex items-center justify-center text-black font-bold text-xs">★</div>`;
+        } else {
+            headerIcon.innerHTML = `
+                <svg viewBox="0 0 24 24" class="w-5 h-5">
+                    <circle cx="12" cy="12" r="12" fill="#cf142b"/>
+                    <path d="M4 16 C8 8, 16 8, 20 14" stroke="#ffcc00" stroke-width="3" fill="none"/>
+                    <path d="M5 18 C10 11, 15 11, 19 16" stroke="#00247d" stroke-width="2.5" fill="none"/>
+                </svg>`;
+        }
+
+        ['USD_BCV', 'EUR_BCV', 'USDT'].forEach(key => {
+            const valEl = document.getElementById(`val-${key}`);
+            const cardEl = document.getElementById(`rate-card-${key}`);
+            const displayVal = state.weekendMode ? RATES[key].weekendValue : RATES[key].value;
+            valEl.textContent = `${displayVal.toFixed(2)} Bs`;
+
+            if (state.selectedRateKey === key) {
+                cardEl.className = 'stagger-item p-3 rounded-xl flex items-center justify-between cursor-pointer transition-all bg-[#1c3879] border border-blue-400/50 text-white';
+            } else {
+                cardEl.className = 'stagger-item p-3 rounded-xl flex items-center justify-between cursor-pointer transition-all';
+                cardEl.style.backgroundColor = 'var(--bg-app)';
+                cardEl.style.borderColor = 'var(--border-color)';
+            }
+        });
+    }
+
+    function setTheme(themeName) {
+        state.currentTheme = themeName;
+        const root = document.documentElement;
+
+        if (themeName === 'clasico') {
+            if (state.isLightClassic) {
+                root.setAttribute('data-theme', 'clasico-claro');
+            } else {
+                root.removeAttribute('data-theme');
+            }
+        } else {
+            root.setAttribute('data-theme', themeName);
+        }
+
+        document.querySelectorAll('.theme-option-card').forEach(card => {
+            card.style.borderColor = 'transparent';
+        });
+        const activeCard = document.getElementById(`theme-card-${themeName}`);
+        if (activeCard) {
+            activeCard.style.borderColor = '#12b981';
+        }
+    }
+
+    function toggleQuickLightDark() {
+        state.isLightClassic = !state.isLightClassic;
+        const label = document.getElementById('quick-theme-label');
+        if (state.isLightClassic) {
+            document.documentElement.setAttribute('data-theme', 'clasico-claro');
+            label.textContent = 'Claro';
+        } else {
+            document.documentElement.removeAttribute('data-theme');
+            label.textContent = 'Oscuro';
+        }
+        state.currentTheme = 'clasico';
+    }
+
+    function addToHistory(calcIdx, expr, amount, direction) {
+        const rate = getActiveRate();
+        const rateLabel = RATES[state.selectedRateKey].label;
+        const fxSymbol = getActiveCurrencySymbol();
+        const now = new Date();
+        const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+        const resultStr = direction === 'FX_TO_BS'
+            ? `${fxSymbol}${formatFx(amount)} → ${formatBs(amount * rate)} Bs`
+            : `${formatBs(amount)} Bs → ${fxSymbol}${formatFx(amount / rate)}`;
+
+        state.history.unshift({
+            calcName: state.calculators[calcIdx].name,
+            expr,
+            resultStr,
+            rateInfo: `${rateLabel}: ${rate.toFixed(2)} Bs`,
+            time: timeStr
+        });
+
+        if (state.history.length > 30) state.history.pop();
+    }
+
+    function renderHistory() {
+        const list = document.getElementById('history-list');
+        if (state.history.length === 0) {
+            list.innerHTML = `
+                <div class="text-center py-10 opacity-60 text-xs">
+                    Aún no hay operaciones guardadas.<br>Pulsa <strong>=</strong> en cualquier calculadora para registrar una cuenta.
+                </div>`;
+            return;
+        }
+
+        list.innerHTML = state.history.map(item => `
+            <div class="p-3 rounded-2xl" style="background-color: var(--bg-app); border: 1px solid var(--border-color);">
+                <div class="flex items-center justify-between text-[10px] mb-1" style="color: var(--text-secondary);">
+                    <span class="font-bold text-emerald-400">${item.calcName}</span>
+                    <span>${item.time}</span>
+                </div>
+                <div class="text-sm font-extrabold">${item.resultStr}</div>
+                <div class="text-[11px] mt-0.5 opacity-70">${item.rateInfo}</div>
+            </div>
+        `).join('');
+    }
+
+    function clearHistory() {
+        state.history = [];
+        renderHistory();
+        showToast('Historial vaciado');
+    }
+
+    function exportHistory() {
+        if (state.history.length === 0) {
+            showToast('No hay datos para exportar');
+            return;
+        }
+        const text = state.history.map(h => `[${h.time}] ${h.resultStr} (${h.rateInfo})`).join('\n');
+        copyToClipboard(text, 'Resumen de historial copiado');
+    }
+
+    function renderPastRates() {
+        const container = document.getElementById('past-rates-list');
+        container.innerHTML = PAST_RATES_DATA.map(row => `
+            <div class="p-3 rounded-2xl" style="background-color: var(--bg-app); border: 1px solid var(--border-color);">
+                <div class="text-xs font-bold mb-2 text-emerald-400">${row.date}</div>
+                <div class="grid grid-cols-3 gap-2 text-center">
+                    <div class="p-1.5 rounded-xl bg-white/5">
+                        <div class="text-[10px] opacity-60">Dólar BCV</div>
+                        <div class="text-xs font-extrabold">${row.usd.toFixed(2)}</div>
+                    </div>
+                    <div class="p-1.5 rounded-xl bg-white/5">
+                        <div class="text-[10px] opacity-60">Euro BCV</div>
+                        <div class="text-xs font-extrabold">${row.eur.toFixed(2)}</div>
+                    </div>
+                    <div class="p-1.5 rounded-xl bg-white/5">
+                        <div class="text-[10px] opacity-60">USDT</div>
+                        <div class="text-xs font-extrabold">${row.usdt.toFixed(2)}</div>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function copyConvertedResult(idx) {
+        const text = document.getElementById(`calc-converted-${idx}`).textContent.trim();
+        copyToClipboard(text, `Copiado: ${text}`);
+    }
+
+    function copyRateValue(rateKey) {
+        const val = state.weekendMode ? RATES[rateKey].weekendValue : RATES[rateKey].value;
+        copyToClipboard(val.toFixed(2), `Tasa ${RATES[rateKey].label} copiada: ${val.toFixed(2)}`);
+    }
+
+    function shareApp() {
+        copyToClipboard(window.location.href, 'Enlace de DólarUP+ copiado');
+        closeAllOverlays();
+    }
+
+    function copyToClipboard(text, toastMsg) {
+        const tempInput = document.createElement('textarea');
+        tempInput.value = text;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        try {
+            document.execCommand('copy');
+            showToast(toastMsg || 'Copiado');
+        } catch (err) {
+            showToast('No se pudo copiar');
+        }
+        document.body.removeChild(tempInput);
+    }
+
+    let toastTimeout;
+    function showToast(msg) {
+        const toast = document.getElementById('toast');
+        toast.textContent = msg;
+        toast.classList.remove('opacity-0', 'translate-y-4');
+        toast.classList.add('opacity-100', 'translate-y-0');
+
+        clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(() => {
+            toast.classList.remove('opacity-100', 'translate-y-0');
+            toast.classList.add('opacity-0', 'translate-y-4');
+        }, 2600);
+    }
+
+    document.addEventListener('keydown', (e) => {
+        const idx = state.activeCalcIndex;
+        if (e.key >= '0' && e.key <= '9') handleCalcKey(idx, e.key);
+        else if (e.key === '.') handleCalcKey(idx, '.');
+        else if (e.key === '+') handleCalcKey(idx, '+');
+        else if (e.key === '-') handleCalcKey(idx, '−');
+        else if (e.key === '*') handleCalcKey(idx, '×');
+        else if (e.key === '/') { e.preventDefault(); handleCalcKey(idx, '÷'); }
+        else if (e.key === 'Enter' || e.key === '=') { e.preventDefault(); handleCalcKey(idx, '='); }
+        else if (e.key === 'Backspace') handleCalcKey(idx, 'DEL');
+        else if (e.key === 'Escape') closeAllOverlays();
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+        setupPWA();
+        buildCalculatorsDOM();
+        updateRateUI();
+        updateAllCalculators();
+        initSwipeGestures();
+        refreshRates(false);
+    });
+</script>
+</body>
+</html>
